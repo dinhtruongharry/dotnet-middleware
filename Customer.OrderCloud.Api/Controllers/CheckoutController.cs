@@ -28,6 +28,14 @@ namespace Catalyst.Api.Controllers
 			return await _checkoutCommand.SetCreditCardPaymentAsync(orderID, shopper, payment);
 		}
 
+		[HttpPut, Route("products")]
+		[OrderCloudUserAuth(ApiRole.Shopper), UserTypeRestrictedTo(CommerceRole.Buyer)]
+		public async Task<PaymentWithXp> SetCreditCardPaymentAsync(string orderID, CreditCardPayment payment)
+		{
+			var shopper = await _oc.Me.GetAsync<MeUserWithXp>(UserContext.AccessToken);
+			return await _checkoutCommand.SetCreditCardPaymentAsync(orderID, shopper, payment);
+		}
+
 		// Hit from Storefront Client
 		[HttpPost, Route("order/{orderID}/submit")]
 		[OrderCloudUserAuth(ApiRole.Shopper), UserTypeRestrictedTo(CommerceRole.Buyer)]
