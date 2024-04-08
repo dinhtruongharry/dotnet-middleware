@@ -68,6 +68,7 @@ namespace Customer.OrderCloud.Api
 				.AddSingleton<ICreditCardProcessor>(stripeService)
 				.AddSingleton<ICreditCardSaver>(stripeService)
 				.AddSingleton<ISendEmailCommand, SendEmailCommand>()
+				.AddTransient<IProductCommand, ProductCommand>()
 				.AddSwaggerGen(c =>
 				 {
 					 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OrderCloud Middleware API", Version = "v1" });
